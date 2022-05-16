@@ -1,0 +1,148 @@
+{
+  "id": 1,
+  "name": "Save Espanso",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        160,
+        120
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "triggerOn": "folder",
+        "path": "C:\\Users\\davtes\\AppData\\Roaming\\espanso\\match\\",
+        "events": [
+          "change",
+          "add"
+        ],
+        "options": {
+          "ignored": ".git"
+        }
+      },
+      "name": "Local File Trigger",
+      "type": "n8n-nodes-base.localFileTrigger",
+      "typeVersion": 1,
+      "position": [
+        380,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "commit",
+        "repositoryPath": "C:\\Users\\davtes\\AppData\\Roaming\\espanso\\match",
+        "message": "\"Automatic Back-up\"",
+        "options": {}
+      },
+      "name": "Git",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1,
+      "position": [
+        720,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "repositoryPath": "C:\\Users\\davtes\\AppData\\Roaming\\espanso\\",
+        "options": {}
+      },
+      "name": "Git1",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1,
+      "position": [
+        860,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "add",
+        "repositoryPath": "C:\\Users\\davtes\\AppData\\Roaming\\espanso\\",
+        "pathsToAdd": "*"
+      },
+      "name": "Git2",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1,
+      "position": [
+        580,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "triggerOn": "file",
+        "path": "C:\\Users\\davtes\\AppData\\Roaming\\espanso\\config\\",
+        "options": {
+          "followSymlinks": true,
+          "ignored": ".git"
+        }
+      },
+      "name": "Local File Trigger2",
+      "type": "n8n-nodes-base.localFileTrigger",
+      "typeVersion": 1,
+      "position": [
+        380,
+        280
+      ]
+    }
+  ],
+  "connections": {
+    "Local File Trigger": {
+      "main": [
+        [
+          {
+            "node": "Git2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Git": {
+      "main": [
+        [
+          {
+            "node": "Git1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Git2": {
+      "main": [
+        [
+          {
+            "node": "Git",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Local File Trigger2": {
+      "main": [
+        [
+          {
+            "node": "Git2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2022-05-03T17:22:08.168Z",
+  "updatedAt": "2022-05-16T13:22:05.767Z",
+  "settings": {},
+  "staticData": null
+}
